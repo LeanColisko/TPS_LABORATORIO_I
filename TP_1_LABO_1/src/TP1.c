@@ -8,8 +8,6 @@
  ============================================================================
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "funciones.h"
 
 int main(void) {
@@ -84,17 +82,19 @@ int main(void) {
 				printf("¿Está seguro/a que desar salir del programa? (S/N)\n>>>>");
 				fflush(stdin);
 				scanf("%c", &banderaSalir);
+				banderaSalir = toupper(banderaSalir);
 				while(banderaSalir !='S' && banderaSalir !='N'){
 					printf("¿Está seguro/a que desar salir del programa? (S/N)\n>>>>");
 					fflush(stdin);
 					scanf("%c", &banderaSalir);
+					banderaSalir = toupper(banderaSalir);
 				}
 			break;
 		}
 
 	} while(banderaSalir != 'S');
 
-	printf("El programa finalizó con éxito.");
+	printf("GRACIAS POR UTILIZAR NUESTRO PROGRAMA\nCopyright: Leandro Colisko División F");
 
 	return EXIT_SUCCESS;
 }

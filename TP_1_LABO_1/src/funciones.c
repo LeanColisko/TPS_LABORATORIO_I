@@ -4,7 +4,8 @@
  *  Created on: 3 abr. 2022
  *      Author: lcolisko
  */
-#include <stdio.h>
+
+#include "funciones.h"
 
 /*
  * Funcion menuPrincipal: Imprime el menu principal y pide al usuario que ingrese una opción
@@ -12,7 +13,7 @@
  */
 unsigned int menuPrincipal(float kilometros, float precioAR, float precioLATAM){
 	unsigned int opcion;
-	printf("MENU PRINCIPAL:\n");
+	printf("\n\tMENU PRINCIPAL:\n");
 	printf("1. Ingresar Kilómetros: (km = %.2f)\n", kilometros);
 	printf("2. Ingresar Precio de Vuelos: (Aerolíneas = %.2f, Latam = %.2f)\n", precioAR, precioLATAM);
 	printf("3. Calcular todos los costos:\n");
@@ -44,8 +45,9 @@ float ingresoValores(char mensaje[]){
 }
 
 
-/* Funcion calcularCostos: Mediante el ingreso de precio, kilometros, variacion pagando con debito, variacion pagango con credito y el cambio de pesos a bitcoins
- * 							calcula el costo para cada medio de pago.
+/* Funcion calcularCostos: Mediante el ingreso de precio, kilometros, variacion pagando con debito,
+* 						   variacion pagango con credito y el cambio de pesos a bitcoins
+ * 						   calcula el costo para cada medio de pago.
  * Imprime el informe de cada opción de pago.
  *
  */
