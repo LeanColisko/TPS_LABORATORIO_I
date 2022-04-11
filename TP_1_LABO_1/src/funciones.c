@@ -16,7 +16,7 @@ unsigned int menuPrincipal(float kilometros, float precioAR, float precioLATAM){
 	printf("\n\tMENU PRINCIPAL:\n");
 	printf("1. Ingresar Kilómetros: (km = %.2f)\n", kilometros);
 	printf("2. Ingresar Precio de Vuelos: (Aerolíneas = %.2f, Latam = %.2f)\n", precioAR, precioLATAM);
-	printf("3. Calcular todos los costos:\n");
+	printf("3. Calcular todos los costos\n");
 	printf("4. Informar Resultados\n");
 	printf("5. Carga forzada de datos\n");
 	printf("6. Salir\n");
@@ -62,7 +62,7 @@ void calcularCostos(float precio, float kilometros, float variacionDebito, float
 
 	printf("a) Precio con tarjeta de débito (descuento 10%c): $%.2f\n", 37, precioDebito) ;
 	printf("b) Precio tarjeta de crédito (interés 25%c): $%.2f\n", 37, precioCredito);
-	printf("c) Precio con Bitcoin (1BTC -> %.2f Pesos Argentinos): BTC %.2f\n", pesosXBitcoin, precioConBitcoin);
-	printf("d) Precio por km (precio unitario): $%.2f\n", precioUnitario);
+	printf("c) Precio con Bitcoin (1BTC -> %.2f Pesos Argentinos): BTC %.5f\n", pesosXBitcoin, precioConBitcoin);
+	printf("d) Precio por km (precio unitario): $%.2f\n\n", precioUnitario);
 }
 

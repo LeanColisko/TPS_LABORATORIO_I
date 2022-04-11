@@ -27,8 +27,10 @@ int main(void) {
 	variacionCredito = 0.25;
 
 	setbuf(stdout, NULL);
-	printf("¡¡¡BIENVENID@S A LA CALCULADORA DE PRECIOS DE VIAJES MARAVILLOSOS!!!\n\n");
-
+	printf("\n\n");
+	printf("--------------------------------------------------------------------\n");
+	printf("¡¡¡BIENVENID@S A LA CALCULADORA DE PRECIOS DE VIAJES MARAVILLOSOS!!!\n");
+	printf("--------------------------------------------------------------------\n\n");
 	do {
 		opcion = menuPrincipal(kilometros, precioARG, precioLatam);
 
@@ -60,13 +62,13 @@ int main(void) {
 			case 4:
 				/*Opcion 4: Informar costos*/
 				if(realizoCalculos == 'S'){
-					printf("Imprimiendo Informes\nLatam:\n");
+					printf("\nLatam:\n");
 					calcularCostos(precioLatam, kilometros, variacionDebito, variacionCredito, cambioBitcoin);
 					printf("Aerolíneas Argentias\n");
 					calcularCostos(precioARG, kilometros, variacionDebito, variacionCredito, cambioBitcoin);
 					printf("e) Diferencia de precio: %.2f\n", precioARG - precioLatam);
 				} else{
-					printf("\nAún no se ha realizado el calculo de los costos.\n");
+					printf("\nAún no se ha realizado el calculo de los costos. Por favor, ingrese la opción 3.\n");
 				}
 			break;
 			case 5:
