@@ -18,13 +18,21 @@
 /// \param precioLATAM Precio del viaje para LATAM ingresados por el usuario, si no lo hubiera es 0.
 /// \brief Esta funcion imprime el menu principal de nuestro programa y devuelve un entero con la opcion seleccionada.
 /// \return Devuelve un entero con la opción seleccionada por el usuario.
-unsigned int menuPrincipal(float kilometros, float precioAR, float precioLATAM);
+char menuPrincipal(float kilometros, float precioAR, float precioLATAM);
 
 /// \fn ingresoValores(char mensaje[]);
 /// \param mensaje[] Cadena de texo que servirá para pedir un valor al usuario.
 /// \brief Permite el ingreso de nuemeros flotantes positivos.
 /// \return Devuelve el valor ingresado por el usuario.
 float ingresoValores(char mensaje[]);
+
+
+/// \fn esFlotanteValido(char cadena[]);
+/// \param cadena[] Cadena de texto a validar si es o no flotante valido.
+/// \brief Valida si una cadena ingresada por un usuario es un numero flotante valido o no.
+/// \return Devuelve 1 en caso de que la cadena sea valida y 0 en caso contrario.
+int esFlotanteValido(char cadena[]);
+
 
 /// \fn calcularCostos(float precio, float kilometros, float variacionDebito, float variacionCredito, float pesosXBitcoin);
 /// \param precio Precio Bruto del viaje.
