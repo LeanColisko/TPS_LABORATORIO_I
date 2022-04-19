@@ -95,7 +95,9 @@ int main(void) {
 
 	} while(banderaSalir != 'S');
 
-	printf("GRACIAS POR UTILIZAR NUESTRO PROGRAMA\nCopyright: Leandro Colisko División F");
+
+	printf("GRACIAS POR UTILIZAR NUESTRO PROGRAMA\nCopyright: Leandro Colisko Divisi%cn F \n", 162);
+
 	return EXIT_SUCCESS;
 }
 
