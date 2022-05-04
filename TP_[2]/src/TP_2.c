@@ -8,15 +8,17 @@
 
 #include "funciones.h"
 #include "Pasajeros.h"
+#include "appFunciones.h"
 
 #define LEN 2000
 
 int main(void) {
 
 	char opcion, banderaSalir;
-
-	ePassenger Pasajeros[LEN];
-
+	int auxIndex = -1;
+	int cantidadPasajeros = 0;
+	int auxPaxToRemove;
+	ePassenger Pasajeros[LEN], auxPasanger;
 
 	banderaSalir = 'N';
 
@@ -29,15 +31,39 @@ int main(void) {
 
 		switch(opcion){
 			case '1':
-				printf("Opcion de alta");
-				//r = addPassenger(Pasajeros, LEN, Pasajeros.id, Pasajeros.name[51], Pasajeros.lastName[51], Pasajeros.price, Pasajeros.typePassenger, Pasajeros.flycode[10]);
-
+				// Completar los datos del pasajero
+				auxIndex = findPassengerIndex(Pasajeros, LEN);
+				if( auxIndex != -1 ){
+					auxPasanger = askPassengerData(auxIndex);
+					addPassenger(Pasajeros, LEN, auxPasanger.id, auxPasanger.name, auxPasanger.lastName, auxPasanger.price, auxPasanger.typePassenger, auxPasanger.flycode);
+					cantidadPasajeros++;
+				} else {
+					printf("La base de datos está completa.\n");
+				}
 				break;
 			case '2':
-				printf("Opcion de Modificacion");
+
+				printf("Opcion de Modificacion\n");
+				if(cantidadPasajeros>=1){
+					for (int i = 0; i <LEN; i++){
+						if( Pasajeros[i].isEmpty == 0 )
+						{
+							printf("%5d\t%s\t%s\t%10.5f\n", Pasajeros[i].id,	Pasajeros[i].name, Pasajeros[i].lastName, Pasajeros[i].price);
+						}
+					}
+				} else{
+					printf("Necesita ingresar un pasajero\n");
+				}
+
 			break;
 			case '3':
 				printf("Opcion de baja");
+				if(cantidadPasajeros>=1) {
+					getIntByConsola(&auxPaxToRemove, "Ingrese el id del pasajero a borrar:", "Error: debe ingresar un número entero mayor a 0", 0, 100000, 5);
+					removePassenger(Pasajeros, LEN, auxPaxToRemove);
+				} else {
+					printf("Necesita ingresar un pasajero\n");
+				}
 			break;
 			case '4':
 				printf("Opcion de imprimir informe");

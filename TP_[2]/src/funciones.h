@@ -15,17 +15,17 @@
 
 #define FUNCIONES_H_
 
-/// \fn MenuPrincipal()
-/// \param void solo imprime por pantalla cuando es invocada
-/// \brief imprime por consola el menú principal de la aplicación
-/// \return retorna un valor char con valores del '1' al '5'
-char MenuPrincipal();
 
 
-int esFlotanteValido(char cadena[]);
-float ingresoFlotantesPositivos();
+int isFloat(char cadena[]);
+int getFloatByConsola(float *valor, char *message, char *messageError, int min, int max, int reintentos);
 
-int esEnteroValido(char cadena[]);
-int ingresoEnterosPositivos();
+int isInt(char cadena[]);
+int getIntByConsola(int *valor, char *message, char *messageError, int min, int max, int reintentos);
+
+int getStringByConsola(char *valor, char *message, char *messageError, int limite, int reintentos);
+
+int myGets(char *cadena, int limite);
+
 
 #endif /* FUNCIONES_H_ */

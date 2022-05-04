@@ -13,29 +13,46 @@ Author: lcolisko
 #include "funciones.h"
 #include "Pasajeros.h"
 
+/*
+ * Funcion getFloatByCosnola
+ * Retorna el valor.
+ */
+int getFloatByConsola(float *valor, char *message, char *messageError, int min, int max, int reintentos){
 
-char MenuPrincipal(){
+	int retorno = -1; //Error de parámetros
+    char datoIngresado[40];
+	int flagEsValido;
+	float auxValor;
 
-	char opcion;
+	if(valor != NULL && message != NULL && messageError != NULL && min <= max && reintentos >= 0 ) {
 
-	printf("\nMen%c Principal:\n\n", 163);
-	printf("1 - ALTA DE PASAJERO\n");
-	printf("2 - MODIFICAR DATOS DE PASAJERO\n");
-	printf("3 - BAJA DE PASAJERO\n");
-	printf("4 - IMFORMACI%cN\n", 224);
-	printf("5 - SALIR\n");
-	printf(">>>>");
+		retorno = 0; //Error de valor
 
-	fflush(stdin);
-	scanf("%c", &opcion);
+		do{
+			printf("\n%s\n>>>>\n", message);
 
-	while(opcion < '1' || opcion > '5'){
-		printf("Por favor, ingrese un valor dentro de las opciones (1 a 5). Reigrese\n>>>>");
-		fflush(stdin);
-		scanf("%c", &opcion);
+			myGets(datoIngresado, 40); // valor de 40 dígitos
+
+			flagEsValido = isFloat(datoIngresado);
+
+			if (flagEsValido){
+				auxValor = atof(datoIngresado);
+
+				if(auxValor >= min && auxValor <= max) {
+
+					*valor = auxValor;
+					retorno = 1;
+					break;
+				}
+
+			}
+			printf("\n%s\n", messageError);
+			reintentos--;
+
+		} while(reintentos >= 0 );
 	}
-	return opcion;
 
+	return retorno;
 }
 
 
@@ -43,70 +60,104 @@ char MenuPrincipal(){
  * Funcion ingresoValores: Permite ingresar valores mayores a 0, usada para ingresar kilometros y precios
  * Retorna el valor ingresado por el usuario.
  */
-float ingresoFlotantesPositivos(){
-	float valor = 0;
-    char datoIngresado[20];
+int getIntByConsola(int *valor, char *message, char *messageError, int min, int max, int reintentos){
+
+	int retorno = -1;
+    char datoIngresado[100];
 	int flagEsValido;
+	int auxValor;
 
-	do{
-	    printf("\n>>>>\n");
-    	fflush(stdin);
-    	scanf("%s", datoIngresado);
+	if(valor != NULL && message != NULL && messageError != NULL && min <= max && reintentos >= 0 ) {
 
-    	flagEsValido = esFlotanteValido(datoIngresado);
-    	if (flagEsValido){
-    	    valor = strtof(datoIngresado, NULL);
-    	}
-	} while(valor < 1 );
+		retorno = 0; //Error de valor
 
-	return valor;
+		do{
+			printf("\n%s\n>>>>", message);
+
+			myGets(datoIngresado, 100);
+
+			flagEsValido = isFloat(datoIngresado);
+
+			if (flagEsValido){
+				auxValor = atoi(datoIngresado);
+
+				if(auxValor >= min && auxValor <= max) {
+
+					*valor = auxValor;
+					retorno = 1;
+					break;
+				}
+
+			}
+			printf("\n%s", messageError);
+			reintentos--;
+
+		} while(reintentos >= 0 );
+	}
+
+	return retorno;
 }
 
 
 /*
- * Funcion ingresoValores: Permite ingresar valores mayores a 0, usada para ingresar kilometros y precios
+ *
  * Retorna el valor ingresado por el usuario.
  */
-int ingresoEnterosPositivos(){
-	int valor = 0;
-    char datoIngresado[20];
+int getStringByConsola(char *valor, char *message, char *messageError, int limite, int reintentos){
+
+	int retorno = -1;
+    char datoIngresado[limite];
 	int flagEsValido;
 
-	do{
-	    printf("\n>>>>\n");
-    	fflush(stdin);
-    	scanf("%s", datoIngresado);
+	if(valor != NULL && message != NULL && messageError != NULL && limite > 0 && reintentos >= 0 ) {
 
-    	flagEsValido = esFlotanteValido(datoIngresado);
-    	if (flagEsValido){
-    	    valor = (int) strtol(datoIngresado, NULL, 20);
-    	}
-	} while(valor < 1 );
+		retorno = 0; //Error de valor
 
-	return valor;
+		do{
+			printf("\n%s\n>>>>", message);
+
+			flagEsValido = myGets(datoIngresado, limite); // valor de 40 dígitos
+
+
+			if (flagEsValido == 1){
+				strncpy(valor, datoIngresado, limite);
+				retorno = 1;
+				break;
+
+			}
+			printf("\n%s", messageError);
+			reintentos--;
+
+		} while(reintentos >= 0 );
+	}
+
+	return retorno;
 }
 
+
 /*
- * Funcion esFlotanteValido: Valida si un numero es un flotante valido o no
+ * Funcion isFloat: Valida si un numero es un flotante valido o no
  */
-int esFlotanteValido(char cadena[]) {
+int isFloat(char cadena[]) {
 
 	int contadorPuntos = 0;
     int i, largoCadena;
     int retorno = -1;
-
 	largoCadena = strlen(cadena);
+
 	if(cadena != NULL && largoCadena > 0){
 
 		retorno = 1; //VERDADERO: DATO VALIDO
 
-		for(i = 0; i <largoCadena; i++) {
+		for(i = 0; i < largoCadena || cadena[i] != '\0'; i++) {
+
 			if(i == 0 && (cadena[i] == '+' || cadena[i] == '-')){
 				continue;
 			}
 
-			if (cadena[i] == '.') {
+			if(cadena[i] == '.') {
 				contadorPuntos++;
+				continue;
 			}
 
 			if(cadena[i] > '9' || cadena[i] < '0' || contadorPuntos > 1){
@@ -114,17 +165,15 @@ int esFlotanteValido(char cadena[]) {
 				break;
 			}
 		}
-
 	}
-
 	return retorno;
 }
 
 /*
- * Funcion esEnteroValido: Valida si un dato ingresado es un entero válido
+ * Funcion isInt: Valida si un dato ingresado es un entero válido
  * Retorna: 0 en caso de que no sea válido -1 por error de parámetros y 1 si es un numero válido
  */
-int esEnteroValido(char cadena[]) {
+int isInt(char cadena[]) {
 
 	int retorno = -1; //ERROR DE PARAMETROS
 	int i, largoCadena;
@@ -134,7 +183,8 @@ int esEnteroValido(char cadena[]) {
 
 		retorno = 1; //VERDADERO
 
-		for(i = 0; i <largoCadena; i++) {
+		for(i = 0; i < largoCadena || cadena[i] != '\0'; i++) {
+
 			if(i == 0 && (cadena[i] == '+' || cadena[i] == '-')){
 				continue;
 			}
@@ -148,5 +198,51 @@ int esEnteroValido(char cadena[]) {
 	}
 	return retorno;
 }
+
+
+/*
+ * Función myGets: Pide un dato por consola y lo guarda en una variable de forma segura
+ *
+ * Retorna: 0 en caso de que no sea válido -1 por error de parámetros y 1 si es un ingreso correcto
+ */
+int myGets(char *cadena, int limite) {
+
+	int retorno = -1; // Error de parámetros
+	char bufferString[4024];
+
+	if( cadena != NULL && limite > 0){
+
+		retorno = 0; // Error en ejecucion
+
+		fflush(stdin);
+
+		if( fgets(bufferString, sizeof(bufferString), stdin) != NULL)
+		{
+			if( bufferString[ strlen(bufferString) -1] == '\n'){
+				bufferString[ strlen(bufferString) -1] = '\0';
+			}
+			if(strlen(bufferString) <= limite)
+			{
+				strncpy(cadena, bufferString, limite);
+				retorno = 1; // Fin correcto
+			}
+		}
+
+	}
+
+
+	return retorno;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
