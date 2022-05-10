@@ -14,8 +14,13 @@ Author: lcolisko
 #include "Pasajeros.h"
 
 /*
- * Funcion getFloatByCosnola
- * Retorna el valor.
+/// \param *valor espacio para guardar un flotante
+/// \param *mensaje
+/// \param *mensaje de error
+/// \param valor minimo posible
+/// \param valor maximo posible
+/// \param reintentos posible
+/// \return 1 si todo está bien
  */
 int getFloatByConsola(float *valor, char *message, char *messageError, int min, int max, int reintentos){
 
@@ -29,7 +34,7 @@ int getFloatByConsola(float *valor, char *message, char *messageError, int min, 
 		retorno = 0; //Error de valor
 
 		do{
-			printf("\n%s\n>>>>\n", message);
+			printf("\n%s\n>>>>", message);
 
 			myGets(datoIngresado, 40); // valor de 40 dígitos
 
@@ -57,8 +62,13 @@ int getFloatByConsola(float *valor, char *message, char *messageError, int min, 
 
 
 /*
- * Funcion ingresoValores: Permite ingresar valores mayores a 0, usada para ingresar kilometros y precios
- * Retorna el valor ingresado por el usuario.
+/// \param *valor espacio para guardar un entero
+/// \param *mensaje
+/// \param *mensaje de error
+/// \param valor minimo posible
+/// \param valor maximo posible
+/// \param reintentos posible
+/// \return 1 si todo está bien
  */
 int getIntByConsola(int *valor, char *message, char *messageError, int min, int max, int reintentos){
 
@@ -100,8 +110,13 @@ int getIntByConsola(int *valor, char *message, char *messageError, int min, int 
 
 
 /*
- *
- * Retorna el valor ingresado por el usuario.
+/// \param *valor espacio para guardar un string
+/// \param *mensaje
+/// \param *mensaje de error
+/// \param valor minimo posible
+/// \param valor maximo posible
+/// \param reintentos posible
+/// \return 1 si todo está bien
  */
 int getStringByConsola(char *valor, char *message, char *messageError, int limite, int reintentos){
 
@@ -136,7 +151,8 @@ int getStringByConsola(char *valor, char *message, char *messageError, int limit
 
 
 /*
- * Funcion isFloat: Valida si un numero es un flotante valido o no
+/// \param cadena
+/// \return int 1 si es float
  */
 int isFloat(char cadena[]) {
 
@@ -233,15 +249,6 @@ int myGets(char *cadena, int limite) {
 
 	return retorno;
 }
-
-
-
-
-
-
-
-
-
 
 
 
