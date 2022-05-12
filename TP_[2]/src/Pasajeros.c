@@ -9,12 +9,11 @@
 #include "appFunciones.h"
 #include "Pasajeros.h"
 
-/**
+/*
 * \brief To indicate that all position in the array are empty, this function put the flag (isEmpty) in TRUE in all position of the array
 * \param list Passenger* Pointer to array of passenger
 * \param len int Array length
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
-*
 */
 int initPassengers(ePassenger* list, int LEN)
 {
@@ -34,15 +33,15 @@ int initPassengers(ePassenger* list, int LEN)
 /*
 * \brief busca un espacio libre en el array de pasajeros
 * \param list passenger*
-* \param len int
-* \return int Return (-1) if Error [Retur index if Ok]
+* \param len int largo del array ePassenger
+* \return int Return (-1) if Error [Return index if Ok]
 */
 int findPassengerIndex(ePassenger* list, int len)
 {
 	int index = -1;
 	int i;
-	if(list != NULL && len > 0) {
 
+	if(list != NULL && len > 0) {
 		for(i = 0; i < len; i++){
 			if( list[i].isEmpty == 1) {
 				index = i;
@@ -73,6 +72,8 @@ int addPassenger(ePassenger* list, int index, int id, char name[], char lastName
 
 	if( list != NULL && id > -1) {
 
+		retorno = 0;
+
 		list[index].id = id;
 		strcpy(list[index].name, name);
 		strcpy(list[index].lastName, lastName);
@@ -81,7 +82,7 @@ int addPassenger(ePassenger* list, int index, int id, char name[], char lastName
 		strcpy(list[index].flycode, flycode);
 		list[index].isEmpty = 0;
 		list[index].statusFlight = 1;
-		retorno = 0;
+
 	}
 	return retorno;
 }
@@ -120,23 +121,21 @@ ePassenger askPassengerData(int id, eTypePassenger* TipoPasajero, int lenTipoPas
 
 
 /**
-* \brief find a Passenger by Id en returns the index position in array.
-*
+* \brief find a Passenger by Id and returns the index position in array.
 * \param list Passenger*
 * \param len int
-* \param id int
+* \param id numero entero ingresado como código único del usuario
 * \return Return passenger index position or (-1) if [Invalid length or NULL pointer received or passenger not found]
-*
 */
 int findPassengerById(ePassenger* list, int len,int id) {
 
 	int index = -1;
 	int i;
-	if(list != NULL && len > 0 && id > 0)
-	{
+	if(list != NULL && len > 0 && id > 0){
 		for(i = 0; i < len; i++){
+
 			if(list[i].id == id){
-				index = i; // Devuelve el index del id buscado
+				index = i;
 				break;
 			}
 		}
@@ -152,8 +151,6 @@ int findPassengerById(ePassenger* list, int len,int id) {
 * \param len int
 * \param id int
 * \return int Return (-1) if Error [Invalid length or NULL pointer or if can't find a passenger] - (0) if Ok
-* Ejemplo uso:
-* r = removePassenger(arrayPassengers, ELEMENTS,20);
 */
 int removePassenger(ePassenger* list, int len, int id)
 {
@@ -175,7 +172,7 @@ int removePassenger(ePassenger* list, int len, int id)
 /// \param len largo del array de eTypePassenger
 /// \brief imprime una tabla con los tipos de pasajeros disponibles
 /// \return una entero con 1 si la función se ejecutó correctamente
- */
+*/
 int printTipoPasajero(eTypePassenger* list, int len)
 {
 	int i, retorno;
@@ -209,8 +206,7 @@ int printTipoPasajero(eTypePassenger* list, int len)
 int changePassengerData(ePassenger* list, int len, int index, eTypePassenger* TipoPasajero, int lenTipoPasajero){
 
 	int retorno;
-	char opcion;
-	char banderaSalir;
+	char opcion, banderaSalir;
 	banderaSalir = 'N';
 	retorno = -1;
 
@@ -218,41 +214,40 @@ int changePassengerData(ePassenger* list, int len, int index, eTypePassenger* Ti
 
 		retorno = 0;
 		do{
+			opcion = SubMenuModificar();
 
-				opcion = SubMenuModificar();
+			switch(opcion){
+				case '1':
+					printf("Nombre registrado: %s", list[index].name);
+					getStringByConsola(list[index].name, "Ingrese el nuevo NOMBRE:", "Error: dato no válido, reintente", 51, 5);
+				break;
+				case '2':
+					printf("Apellido registrado: %s", list[index].lastName);
+					getStringByConsola(list[index].lastName, "Ingrese el nuevo APELLIDO:", "Error: dato no válido, reintente", 51, 5);
+				break;
+				case '3':
+					printf("Precio actualmente registrado: %.2f", list[index].price);
+					getFloatByConsola(&list[index].price, "Ingrese el nuevo precio del pasaje:", "Error: dato no válido, reintente", 0, 1000000, 5);
+				break;
+				case '4':
+					printf("Código del tipo de pasajero registrado: %d\n", list[index].typePassenger);
+					printf("Ingrese el nuevo código del tipo de pasajero basandose en la siguiente lista:\n");
+					printTipoPasajero(TipoPasajero, lenTipoPasajero);
+					getIntByConsola(&list[index].typePassenger, "", "Error: dato no válido, reintente", 1, 100, 5);
+				break;
+				case '5':
+					printf("Código de vuelo registrado: %s", list[index].flycode);
+					getStringByConsola(list[index].flycode, "Ingrese el nuevo código de vuelo:", "Error: dato no válido, reintente", 11, 5);
+				break;
+				case '6':
+					do {
+						printf("%cEst%c seguro/a que desar finalizar con las modificaciones%c (S/N)\n>>>>", 168, 160, 63);
+						fflush(stdin);
+						scanf("%c", &banderaSalir);
+						banderaSalir = toupper(banderaSalir);
+					} while(banderaSalir !='S' && banderaSalir !='N');
 
-				switch(opcion){
-					case '1':
-						printf("Nombre registrado: %s", list[index].name);
-						getStringByConsola(list[index].name, "Ingrese el nuevo NOMBRE:", "Error: dato no válido, reintente", 51, 5);
-					break;
-					case '2':
-						printf("Apellido registrado: %s", list[index].lastName);
-						getStringByConsola(list[index].lastName, "Ingrese el nuevo APELLIDO:", "Error: dato no válido, reintente", 51, 5);
-					break;
-					case '3':
-						printf("Precio actualmente registrado: %.2f", list[index].price);
-						getFloatByConsola(&list[index].price, "Ingrese el nuevo precio del pasaje:", "Error: dato no válido, reintente", 0, 1000000, 5);
-					break;
-					case '4':
-						printf("Código del tipo de pasajero registrado: %d\n", list[index].typePassenger);
-						printf("Ingrese el nuevo código del tipo de pasajero basandose en la siguiente lista:\n");
-						printTipoPasajero(TipoPasajero, lenTipoPasajero);
-						getIntByConsola(&list[index].typePassenger, "", "Error: dato no válido, reintente", 1, 100, 5);
-					break;
-					case '5':
-						printf("Código de vuelo registrado: %s", list[index].flycode);
-						getStringByConsola(list[index].flycode, "Ingrese el nuevo código de vuelo:", "Error: dato no válido, reintente", 11, 5);
-					break;
-					case '6':
-						do {
-							printf("%cEst%c seguro/a que desar finalizar con las modificaciones%c (S/N)\n>>>>", 168, 160, 63);
-							fflush(stdin);
-							scanf("%c", &banderaSalir);
-							banderaSalir = toupper(banderaSalir);
-						} while(banderaSalir !='S' && banderaSalir !='N');
-
-					break;
+				break;
 				}
 			} while(banderaSalir != 'S');
 
@@ -261,7 +256,7 @@ int changePassengerData(ePassenger* list, int len, int index, eTypePassenger* Ti
 }
 
 
-/**
+/*
 /// \param puntero de ePassenger
 /// \param len: largo del array ePassenger
 /// \param puntero de eTypePassenger
@@ -269,10 +264,9 @@ int changePassengerData(ePassenger* list, int len, int index, eTypePassenger* Ti
 /// \param puntero de eStatusFlight
 /// \param lenStatus del array de tipo de pasajero
 /// \brief imprime por pantalla una tabla con todos los pasajeros cargados
-/// \return un entero -1 para error  0 para OK
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
  */
-int printPassenger(ePassenger* list, int len, eTypePassenger* tipoPasajero, int lenTipoPasajero, eStatusFlight* status, int lenStatus)
-{
+int printPassenger(ePassenger* list, int len, eTypePassenger* tipoPasajero, int lenTipoPasajero, eStatusFlight* status, int lenStatus) {
 	int i, j, k, retorno;
 	retorno = -1;
 
@@ -311,9 +305,8 @@ int printPassenger(ePassenger* list, int len, eTypePassenger* tipoPasajero, int 
 /// \param puntero de ePassenger
 /// \param len: largo del array ePassenger
 /// \brief ordena el Array de pasajero por apellido y código de pasajero ambos de forma ascendente.
-/// \return un entero -1 para error  0 para OK
- */
-
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
+*/
 int sortPassenger(ePassenger* list, int len){
 
 	int i, j, retorno;
@@ -342,6 +335,110 @@ int sortPassenger(ePassenger* list, int len){
 }
 
 
+/**
+/// \param array de pasajeros
+/// \param len de pasajeros
+/// \brief Calcula total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio promedio.
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
+ */
+int makeCalculation(ePassenger* list, int len){
+
+	int i,  retorno, pasajeroSuperanPrecioPromedio, cantidad;
+	retorno = -1;
+	float total = 0.0;
+	float promedio = 0.0;
+	cantidad = 0;
+	pasajeroSuperanPrecioPromedio = 0;
+
+	if(list != NULL && len > 0 ){
+		retorno = 0;
+
+		for(i = 0; i < len-1; i++) {
+			if( list[i].isEmpty == 0) {
+				total = total + list[i].price;
+				cantidad++;
+			}
+		}
+		if(cantidad > 0){
+
+			promedio = total / (float)cantidad;
+
+			for(i = 0; i < len-1; i++) {
+				if( list[i].isEmpty == 0 && list[i].price > promedio) {
+
+					pasajeroSuperanPrecioPromedio++;
+				}
+			}
+
+			printf("Calculos de pasajes.\n");
+			printf("Suma total de precios: %.3f\nPromedio de los precios: %.3f\n", total, promedio);
+			printf("Cantidad de pasajeros que supera el promedio: %d.\n", pasajeroSuperanPrecioPromedio);
+
+		} else {
+			printf("No hay pasajeros cargados.\n");
+		}
+
+	}
+	return retorno;
+}
+
+/*
+/// \param puntero de ePassenger
+/// \param len: largo del array ePassenger
+/// \brief filtra el array por estado activo.
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
+*/
+int filterPassenger(ePassenger* list, ePassenger* auxiliar, int len){
+
+	int i, retorno;
+	retorno = -1;
+
+	initPassengers(auxiliar, len);
+
+	if(list != NULL && len > 0 ){
+
+		for(i = 0; i < len-1; i++) {
+			if( list[i].isEmpty == 0 && list[i].statusFlight == 1 ){
+				auxiliar[i] = list[i];
+			}
+		}
+
+		retorno = 0;
+	}
+	return retorno;
+}
+
+
+/*
+/// \param puntero de ePassenger
+/// \param len: largo del array ePassenger
+/// \brief ordena el Array de pasajero por apellido y código de pasajero ambos de forma ascendente.
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
+*/
+int sortPassengerByFlyCode(ePassenger* list, int len){
+
+	int i, j, retorno;
+	ePassenger pasajerosOrdenado;
+	retorno = -1;
+
+	if(list != NULL && len > 0 ){
+		retorno = 0;
+		for(i = 0; i < len-1; i++) {
+
+			for(j = 1; j < len; j++)
+
+				if( list[i].isEmpty == 0 &&
+					(strcmp(list[i].flycode, list[j].flycode) < 1)) {
+
+					pasajerosOrdenado = list[i];
+					list[i] = list[j];
+					list[j] = pasajerosOrdenado;
+				}
+		}
+	}
+	return retorno;
+}
+
 
 
 
@@ -354,7 +451,7 @@ int sortPassenger(ePassenger* list, int len){
 /// \param puntero de eStatusFlight
 /// \param lenStatus del array de tipo de pasajero
 /// \brief imprime los informes de acuerdo a la elección del usuario
-/// \return un entero 1 en caso de que se ejecute correctamente
+/// \return un entero -1 para error de ejecución [0 si el procesó resultó OK]
  */
 int printsInformes(ePassenger* list, int len, eTypePassenger* TipoPasajero, int lenTipoPasajero, eStatusFlight* status, int lenStatus)
 {
@@ -362,53 +459,43 @@ int printsInformes(ePassenger* list, int len, eTypePassenger* TipoPasajero, int 
 	int retorno;
 	char opcion;
 	char banderaSalir;
+	ePassenger auxiliar[len];
+
 	banderaSalir = 'N';
 	retorno = -1;
-
-
 
 	if(list != NULL && len > 0){
 
 		retorno = 0;
 		do{
 
-				opcion = SubMenuInformar();
+			opcion = SubMenuInformar();
 
-				switch(opcion){
-					case '1':
-						sortPassenger(list, len);
-						printPassenger(list, len, TipoPasajero, lenTipoPasajero, status, lenStatus);
-					break;
-					case '2':
+			switch(opcion){
+				case '1':
+					sortPassenger(list, len);
+					printPassenger(list, len, TipoPasajero, lenTipoPasajero, status, lenStatus);
+				break;
+				case '2':
+					makeCalculation(list, len);
+				break;
+				case '3':
+					filterPassenger(list, auxiliar, len);
+					sortPassengerByFlyCode(auxiliar, len);
+					printPassenger(auxiliar, len, TipoPasajero, lenTipoPasajero, status, lenStatus);
+				break;
+				case '4':
+					do {
+						printf("%cEst%c seguro/a que desar salir del men%c de informes%c (S/N)\n>>>>", 168, 160, 163, 63);
+						fflush(stdin);
+						scanf("%c", &banderaSalir);
+						banderaSalir = toupper(banderaSalir);
+					} while(banderaSalir !='S' && banderaSalir !='N');
 
-					break;
-					case '3':
-
-					break;
-					case '4':
-						do {
-							printf("%cEst%c seguro/a que desar salir del men%c de informes%c (S/N)\n>>>>", 168, 160, 163, 63);
-							fflush(stdin);
-							scanf("%c", &banderaSalir);
-							banderaSalir = toupper(banderaSalir);
-						} while(banderaSalir !='S' && banderaSalir !='N');
-
-					break;
+				break;
 				}
 			} while(banderaSalir != 'S');
 
 	}
 	return retorno;
 }
-
-
-
-
-
-
-
-
-
-
-
-

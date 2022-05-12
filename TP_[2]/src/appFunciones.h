@@ -9,14 +9,13 @@
 #define APPFUNCIONES_H_
 
 /// \fn MenuPrincipal()
-/// \param void solo imprime por pantalla cuando es invocada
 /// \brief imprime por consola el menú principal de la aplicación
 /// \return retorna un valor char con valores del '1' al '5'
 char MenuPrincipal();
 
-/// \param void solo imprime por pantalla cuando es invocada
 /// \brief imprime por consola el subMenu de modificacion de la aplicación
-/// \return retorna un valor char con valores del '1' al '5'
+/// \param void solo imprime por pantalla cuando es invocada
+/// \return retorna un valor char con valores del '1' al '6'
 char SubMenuModificar();
 
 /// \param void solo imprime por pantalla cuando es invocada

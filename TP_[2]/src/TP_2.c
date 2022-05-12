@@ -11,7 +11,6 @@
 #include "appFunciones.h"
 
 
-
 #define LEN 2000
 #define LEN_TIPO_P 3
 #define LEN_STATUS 3
@@ -31,7 +30,6 @@ int main(void) {
 
 	auxIndex = -1;
 	respuestaAdd = -1;
-
 	banderaSalir = 'N';
 
 	setbuf(stdout, NULL);
@@ -62,9 +60,8 @@ int main(void) {
 				}
 				break;
 			case '2':
-				printf("Opcion de Modificación\n");
-				if(cantidadPasajeros > 0){
 
+				if(cantidadPasajeros > 0){
 					getIntByConsola(&idAux, "Ingrese el id del pasajero que desea modificar", "Error: dato no válido, reintente", 1, 1000000, 5);
 					auxIndex = findPassengerById(Pasajeros, LEN, idAux);
 					if(auxIndex > -1){
@@ -81,9 +78,8 @@ int main(void) {
 
 			break;
 			case '3':
-				printf("Opcion de baja");
-				if(cantidadPasajeros > 0){
 
+				if(cantidadPasajeros > 0){
 					getIntByConsola(&auxPaxToRemove, "Ingrese el id del pasajero a borrar:", "Error: debe ingresar un número entero mayor a 0", 0, 100000, 5);
 					resultadoAux = removePassenger(Pasajeros, LEN, auxPaxToRemove);
 					if(resultadoAux == 0 ){
@@ -98,7 +94,7 @@ int main(void) {
 
 			break;
 			case '4':
-				printf("Opcion de imprimir informe");
+
 				if(cantidadPasajeros > 0){
 
 					printsInformes(Pasajeros, LEN, TipoPasajeros, LEN_TIPO_P, StatusReserva, LEN_STATUS);

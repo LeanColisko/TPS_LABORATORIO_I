@@ -75,9 +75,9 @@ char SubMenuInformar(){
 	char opcion;
 
 	printf("\nMen%c Informe:\n\n", 163);
-	printf("1 - Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.\n");
-	printf("2 - Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio promedio.\n");
-	printf("3 - Listado de los pasajeros por Código de vuelo y estados de vuelos ACTIVO\n");
+	printf("1 - LISTADO DE LOS PASAJEROS ORDENADOS ALFABÉTIMANTE POR APELLIDO Y TIPO DE PASAJERO.\n");
+	printf("2 - TOTAL Y PROMEDIO DE LOS PRECIOS DE LOS PASAJES, CUÁNTOS PASAJEROS SUPERAN EL PROMEDIO.\n");
+	printf("3 - LISTADO DE LOS PASAJEROS POR CÓDIGO DE VUELO Y ESTADOS DE VUELOS ACTIVOS.\n");
 	printf("4 - SALIR\n");
 	printf(">>>>");
 
